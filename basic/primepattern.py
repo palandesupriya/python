@@ -10,8 +10,8 @@ def IsPrime(iNum):
 	return True
 	
 def pattern(iNum):
+	iStart = 3
 	for iRow in range(1, iNum + 1):
-		iStart = (iRow*(iRow + 1))/2
 		for iCol in range(1, iRow + 1):
 			if (1 == iRow):
 				print("2"),
