@@ -15,10 +15,11 @@ def Generic2sPowerDivisibiltyTest(iNum, iDiv):
 	
 def main():
 	iNum = input("Enter a number:")
-	if (Generic2sPowerDivisibiltyTest(iNum)):
-		print("{} is in power of  2".format(iNum))
+	iDiv = input("Enter a divisor:")
+	if (Generic2sPowerDivisibiltyTest(iNum, iDiv)):
+		print("{} is in power of  {}".format(iNum, iDiv))
 	else:
-		print("{} is not in power of  2".format(iNum))
+		print("{} is not in power of  {}".format(iNum, iDiv))
 		
 if __name__ == '__main__':
 	main()
