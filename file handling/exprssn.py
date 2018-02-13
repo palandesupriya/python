@@ -8,12 +8,14 @@ WAP which compute value of following expression
 def getexprss(iNum):
 	temp = iNum
 	szExpression = str(iNum)
+	sum = iNum
 	for i in range(1,iNum):
 		szExpression += "+"
 		tempNum = iNum*(10**i)+temp
+		sum += tempNum
 		szExpression += str(tempNum)
 		temp = tempNum
-	print("Expected expression is:{}".format(szExpression))
+	print("{}={}".format(szExpression, sum))
 def main():
 	while (1):
 		iNum = input("Enter digit:")
