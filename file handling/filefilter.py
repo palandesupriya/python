@@ -1,26 +1,26 @@
 '''
 1. WAP to accept a name of a file from user and print count of lines present in that file based on following filters
 	- if filter comes as a empty string - count total lines using readline()
-	- if filter="^Hello" the line count should be of lines which starts with "Hello"
-	- if filter="Hello$" - count ends with Hello
-	- if neither above then check for contains "Hello" and count lines.
+	- if filter="^substr" the line count should be of lines which starts with "substr"
+	- if filter="substr$" - count ends with substr
+	- if neither above then check for contains "substr" and count lines.
 '''
 def findsubstr(szStr, szFilter):
 	iCnt = 0
 	szFilter = szFilter.lower()
-	if "^hello" == szFilter:
-		szTemp = szStr[0: len("hello"):]
+	if szFilter.startswith("^"):
+		szTemp = szStr[0: len(szFilter)-1:]
 		szTemp = szTemp.lower()
-		if szTemp == "hello":
+		if szTemp == szFilter[1:]:
 			iCnt = 1
-	elif "hello$" == szFilter:
-		szTemp = szStr[len(szStr) - len("hello") - 1: len(szStr) - 1:]
+	elif szFilter.endswith("$"):
+		szTemp = szStr[len(szStr) - (len(szFilter) -1 )- 1: len(szStr) - 1:]
 		szTemp = szTemp.lower()
-		if szTemp == "hello":
+		if szTemp == szFilter[0: (len(szFilter) - 1)]:
 			iCnt = 1
-	elif "hello" == szFilter:
+	elif szFilter in szStr:
 		szStr = szStr.lower()
-		if 1 <= szStr.count("hello"):
+		if 1 <= szStr.count(szFilter):
 			iCnt = 1
 	else:
 		iCnt = 1
