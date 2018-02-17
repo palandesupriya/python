@@ -3,11 +3,13 @@ import os.path
       >>> import os
       >>> os.path.abspath(fnm)
         'E:\\movie\\young sheldon'
+        
 (2) os.path.basename(path) - Return the base name of pathname path.
       >>> print fnm
       E:\movie\young sheldon
       >>> os.path.basename(fnm)
       'young sheldon'
+      
 (3) os.path.commonprefix(list) - Return the longest path prefix (taken character-by-character) that is a prefix of all
  paths in list. If list is empty, return the empty string (''). 
 
@@ -15,9 +17,11 @@ import os.path
   function split().
       >>> os.path.dirname(fnm)
          'E:\\movie'
+         
 (5) os.path.exists(path) - Return True if path refers to an existing path.
       >>. os.path.exists(lst[0])
       False
+      
 (6) os.path.expandvars(path) - Return the argument with environment variables expanded.
 Substrings of the form $name or ${name} are replaced by the value of environment variable name.
 
