@@ -10,7 +10,7 @@ class Queue:
 		if False == self.isFull():
 			self.lst.append(value)
 		else:
-			print("STACK IS FULL!!!!")
+			print("QUEUE IS FULL!!!!")
 		
 	def remove(self):
 		if False == self.isEmpty():
@@ -38,7 +38,7 @@ def main():
 	ch = input("Enter choice:")
 	while 5 != ch:
 		if 1 == ch:
-			val = input("Enter element to push:")
+			val = input("Enter element to add:")
 			queobj.add(val)
 		elif 2 == ch:
 			queobj.remove()
