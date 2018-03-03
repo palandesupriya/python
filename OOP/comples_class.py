@@ -1,34 +1,41 @@
 '''
 implement complex number: add a number to complex number, add two complex numbers
 							subtract a number from complex number, subtract two complex numbers
-							x + iy 
+							x + iy
+
+__Add__ and __contains__ are operator overloaded functions.							
 '''
 class Complex:
 
-	def __init__(self, x = 0, y = 0):
-		self.x = x
-		self.y = y
+	def __init__(self, ix = 0, iy = 0):
+		self.ix = ix
+		self.iy = iy
 	
 	def __del__(self):
 		print("Destructor")
 		
 	def getValues(self):
-		return self.x, self.y
+		return self.ix, self.iy
 		
-	def setValues(self, x, y):
-		self.x = x
-		self.y= y
+	def setValues(self, ix, iy):
+		self.ix = ix
+		self.iy= iy
 		
-	def add(self, obj1, obj2):
-		self.x = obj1.x + obj2.x
-		self.y = obj1.y + obj2.y
-	
+	def __add__(self, iValue):
+		obj = Complex()	
+		if isinstance(iValue, Complex): 	#OR we could use if (Complex == type(iValue))
+			obj.ix = self.ix + iValue.ix
+			obj.iy = self.iy + iValue.iy
+		elif isinstance(iValue, int):
+			obj.ix = self.ix + iValue.ix
+			obj.iy = self.iy
+			
 	def subtract(self, obj1, obj2):
-		self.x = obj1.x - obj2.x
-		self.y = obj1.y - obj2.y
+		self.ix = obj1.ix - obj2.ix
+		self.iy = obj1.iy - obj2.iy
 		
-	def show(self):
-		print("{}+{}i".format(self.x, self.y))
+	def __repr__(self):
+		return str(self.ix + "+i" + self.iy)
 	
 def main():
 	obj1 = Complex()
@@ -43,18 +50,14 @@ def main():
 	obj2.setValues(ix2, iy2)
 
 	print("Addition of complex numbers:")
-	obj1.show()
-	obj2.show()
 	print("Result:"),
-	objAdd.add(obj1, obj2)
-	objAdd.show()
+	objAdd = obj1+ obj2
+	print objAdd
 	
 	print("Substraction of complex numbers:")
-	obj1.show()
-	obj2.show()
 	print("Result:"),
-	objSubtract.subtract(obj1, obj2)
-	objSubtract.show()
+	objSubtract = obj1 - obj2
+	print objSubtract
 	
 if __name__ == '__main__':
 	main()
