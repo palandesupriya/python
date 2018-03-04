@@ -4,7 +4,7 @@ implement method withdraw, deposit, check balance.
 '''
 class BankAccount:
 	AccountNumber = 1200
-	
+	dict of card respective to one user(accntnumber, cardobject)
 	def __init__(self, balance = 0, bOpen = True):
 		self.accnum = BankAccount.AccountNumber
 		BankAccount.AccountNumber += 1
@@ -34,7 +34,9 @@ class BankAccount:
 
 class BankBranch:
 	dctBankAccount = {}
-	
+	def __init__(atmobj):
+		self.atmobj = atmobj
+		
 	def CreateAccount(self):
 		obj = BankAccount(500)
 		BankBranch.dctBankAccount[obj.getAccountNumber()] = obj
@@ -58,7 +60,16 @@ class BankBranch:
 
 	#def Tranfer()
 	
-
+class ATM:
+	def deposit()
+	def withdraw()
+	def checkbalance()
+	def ministmt()
+	def retruncardaccountobj()
+	def adcard(cardobj,acountobj)
+class Card:
+	
+	
 def main():
 	lstObj = {}
 	print("1.Create Account.")
