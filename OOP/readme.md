@@ -31,3 +31,17 @@ Class contains:
       4.1 Object Attributes(Present per object)
       4.2 Class attributes(Common for all objects like a static member variable in c++)
    
+DEcorators in python:
+@staticmethod used for static method creation
+@classmethod used to create class method
+
+class Test:
+	@staticmethod		#use this when dont want to create object
+	def bar():
+		print "bar"
+	@classmethod		#working on class attributes use this
+	def Trek(cls):
+		print id(cls)
+		
+Test.bar()
+Test.Trek()
