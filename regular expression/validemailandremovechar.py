@@ -5,7 +5,9 @@
 '''
 import re
 def verifyemail(szEmail):
-	regExpr = re.search("[a-zA-Z0-9]+\@{1}[a-zA-Z]+\.{1}[a-zA-Z]+", szEmail)
+	
+	#regExpr = re.search("[a-zA-Z0-9]+\@{1}[a-zA-Z]+\.{1}[a-zA-Z]+", szEmail)
+	regExpr = "([\w\.]+)@([\w\.]+)\.(\w+)"
 	if None == regExpr:
 		return False
 	if len(szEmail) == regExpr.end():
