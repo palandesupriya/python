@@ -143,5 +143,95 @@ import re
         >>> x.start(), x.end()
         (0, 10)
         
+    (6) re.compile(expren) - Compile a regular expression pattern into a regular expression object, which can be used for matching
+        re.findall(pattern,string,flag) - Return all non-overlapping matches of pattern in string, as a list of strings. The string is                 
+                   scanned left-to-right, and matches are returned in the order found. If one or more groups are present in the pattern,             
+                   return a list of groups; this will be a list of tuples if the pattern has more than one group. Empty matches are included                         
+                   in the result.
+        '.'
+           (Dot.) In the default mode, this matches any character except a newline.
+           If the DOTALL flag has been specified, this matches any character including a newline.
+        '^' 
+           (Caret.) Matches the start of the string, and in MULTILINE mode also matches immediately after each newline.
+           
+        >>> x = re.compile("^a")
+        >>> x.findall("a for apple\na for ball")
+        ['a']
         
-        
+        >>> x = re.compile("^a",re.MULTILINE)
+        >>> x.findall("a for apple\na for ball")
+        ['a', 'a']
+        >>> x.findall("a for apple\nA for ball")
+        ['a']
+
+        >>> x = re.compile("^a",re.MULTILINE|re.IGNORECASE)
+        >>> x.findall("a for apple\nA for ball")
+            ['a', 'A']
+
+        >>> x = re.compile("^a",re.DOTALL)
+        >>> x.findall("a for apple\nA for ball")
+            ['a']
+    
+        >>> x = re.compile(".+")
+        >>> x.findall("a for apple\nA for ball\na for america")
+            ['a for apple', 'A for ball', 'a for america']
+    
+        >>> x = re.compile(".+",re.DOTALL)
+        >>> x.findall("a for apple\nA for ball\na for america")
+            ['a for apple\nA for ball\na for america']
+
+        >>> s = "hsdfhsdhf1552s2153154asfdsvh45455"
+        >>> x = re.compile("[0-9]+")
+        >>> x.findall(s)
+            ['1552', '2153154', '45455']
+    
+    ##Special characters after \ specify some special meaning like \A, \Z, \b, \B, \number, \d, \D, \s, \S, \w, \W
+    
+        >>> x = re.search("\Aa","aasbfha") #\A Matches only at the start of the string.
+        >>> print x.start(),x.end()
+            0 1
+    
+        >>> x = re.search("a\Z","aasbfha") #\Z matches only the end of the string
+        >>> print x.start(),x.end()
+            6 7
+
+        -> By putting ^ this in start, will invert condition.
+            >>> x = re.compile("[^[0-9]+")
+            >>> s = "hsdfhsdhf1552s2153154asfdsvh45455"
+            >>> x.findall(s)
+                ['hsdfhsdhf', 's', 'asfdsvh']
+
+        -> To identify only digits use \d
+            >>> x = re.compile("[\d]+")
+            >>> x.findall(s)
+                ['1552', '2153154', '45455']
+            >>> x = re.compile("[\D]+")
+            >>> x.findall(s)
+                ['hsdfhsdhf', 's', 'asfdsvh']
+            >>> 
+
+        -> Match pattern at start of word in sentence.
+            \b Matches the empty string, but only at the beginning or end of a word
+            >>> x = re.compile(r"\ba\w+")
+            >>> s = "apple is awesome,america ris ruled by trump"
+            >>> x.findall(s)
+                ['apple', 'awesome', 'america']
+            >>> 
+    
+        ->All words starts and ends with "a"
+            >>> x = re.compile(r"\ba\w+a\b")
+            >>> x.findall(s)
+                ['america']
+            >>> 
+
+        -> Word not starting with "a"
+            >>> x = re.compile(r"\Ba\w*")
+            >>> s = "apple is awesome,america rais rulaed by traump"
+            >>> x.findall(s)
+                ['a', 'ais', 'aed', 'aump']
+            >>> x = re.compile(r"\Bm\w*")
+            >>> x.findall(s)
+                ['me', 'merica', 'mp']
+            >>> x = re.compile(r"\w+\Bm\w*")
+            >>> x.findall(s)
+                ['awesome', 'america', 'traump']
