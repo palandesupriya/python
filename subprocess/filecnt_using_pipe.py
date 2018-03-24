@@ -3,13 +3,14 @@ def main():
     fd = open("main.py", "r")
     pipeHandle = subprocess.Popen("cat -", shell = True, stdout = subprocess.PIPE, stdin = fd)
     stdin_val = pipeHandle.communicate()
+    szStr = str(stdin_val)
     fd.close()
     iTemp = 0
     iWordCnt = 0
     iCharCnt = 0
     iLineCnt = 1
-    while (iTemp < len(stdin_val)):
-        ch = stdin_val[iTemp]
+    while (iTemp < len(szStr)):
+        ch = szStr[iTemp]
         if '\n' == ch:
             iWordCnt += 1
             iLineCnt += 1
