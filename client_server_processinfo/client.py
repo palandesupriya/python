@@ -3,6 +3,55 @@ import sys
 import string
 import threading
 
+def Open(config_file_name):
+	fd = open(config_file_name)
+	# validate configuration file if any
+	return fd
+	
+def ParseConfig(config_file_handle):
+	result = {}
+	line = " "
+	if config_file_handle != None:
+		print line
+		while line != "":
+			line = config_file_handle.readline()
+			if line.startswith('['):
+				break
+			if not line.startswith("#") and "=" in line:
+				config_option = line.split("=")
+				#print config_option
+				if "#" in config_option[1]:
+					config_option[1] = config_option[1].split("#")[0]
+				result[config_option[0]] = config_option[1][0:-1]
+	print result, line
+	return result, line
+
+def ParseSections(config_file_handle):
+	result = {}
+	if config_file_handle != None:
+		line = " "
+		while line != "":
+			#print line
+			if line.startswith('['):
+				key = line[1:line.index(']')]
+				#print key
+				dic, line = ParseConfig(config_file_handle)
+				result[key] = dic
+				#print result
+				continue    
+			line = config_file_handle.readline()
+	return result        
+	
+def GetInfo(config_file_name):
+	#config_file_name = configfilename
+	#input("Enter Name of Configuration File:")
+	config_file_handle = Open(config_file_name)
+	configurations = ParseSections(config_file_handle)
+	config_file_handle.close()
+	for key in configurations:
+		print key,"=", configurations[key]
+	return configurations
+	
 class Process_Thread(threading.Thread):
 
 	def __init__(self, ip, port, msg):
@@ -34,12 +83,21 @@ class Process_Thread(threading.Thread):
 			sock.close()
 			return
 def main():
-	dctIP = ["localhost", "localhost", "localhost"]
-	dctPort = [10003, 10004, 10005]
-	msg = "dir"
+	dctIP = {}
+	dctPort = {}
+	msg = {}
+	FileData = GetInfo("config.conf")
 	obj = []
-	for i in range(3):
-		obj = Process_Thread(dctIP[i], dctPort[i], msg)
+	for key in FileData:
+		dctServerInfo = FileData[key]
+		for subkey in dctServerInfo:
+			if subkey == "ip":
+				dctIP = dctServerInfo[subkey]
+			elif subkey == "port":
+				dctPort = dctServerInfo[subkey]
+			else:
+				msg = dctServerInfo[subkey]
+		obj = Process_Thread(dctIP, int(dctPort), msg)
 		obj.start()
 		obj.join()
 		
