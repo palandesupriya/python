@@ -4,7 +4,9 @@ import string
 import threading
 
 class Process_Thread(threading.Thread):
-	def __init__(ip, port, msg):
+
+	def __init__(self, ip, port, msg):
+		super(Process_Thread, self).__init__()
 		self.ip = ip
 		self.port = port
 		self.msg = msg
@@ -19,24 +21,27 @@ class Process_Thread(threading.Thread):
 
 		try:
 			# Send data
-			print('sending "%s"' % self.msg)
+			print('client {} is sending {}'.format(self.ip, self.msg))
 			while 1:
 				sock.sendall(self.msg)
 				while True:
 					data = sock.recv(1024)
 					if not data:
 						break
-					print('received "%s"' % data)
+					print('"%s"' % data)
 		finally:
+			print("Closing connection for client:{}".format(self.ip))
 			sock.close()
 			return
 def main():
 	dctIP = ["localhost", "localhost", "localhost"]
-	dctPort = ["10003", "10004", "10005"]
+	dctPort = [10003, 10004, 10005]
 	msg = "dir"
-	for i in range(len(dctPort)):
-		obj[i] = Process_Thread(dctIP[i], dctPort[i], msg)
-		obj[i].start()
-	
+	obj = []
+	for i in range(3):
+		obj = Process_Thread(dctIP[i], dctPort[i], msg)
+		obj.start()
+		obj.join()
+		
 if __name__ == '__main__':
 	main()
